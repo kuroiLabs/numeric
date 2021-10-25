@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "outDir": "lib",
+    "target": "es2015",
+    "lib": ["ES2015"], 
+    "module": "commonjs", 
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "declaration": true,
+    "sourceMap": false,
+    "strict": true,
+    "typeRoots": [
+      "./types"
+    ]
+  }
+}
