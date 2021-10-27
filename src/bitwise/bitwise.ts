@@ -1,9 +1,9 @@
-export function byteArrayToInt(_bytes: bit[]): int {
+export function binaryToInt(_bytes: bit[]): int {
   const _binary = _bytes.reverse().map(x => x ? 1 : 0).join('')
   return parseInt(_binary, 2)
 }
 
-export function intToByteArray(_int: int, _byteLength: byte): bit[] {
+export function intToBinary(_int: int, _byteLength: byte): bit[] {
   let _bytes: bit[] = new Array(_byteLength)
   for (let i = 0; i < _byteLength; i++) {
     _bytes[i] = !!((_int >> i) & 1)
