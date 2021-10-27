@@ -1,43 +1,46 @@
 type IdFactory = Generator<int, int, int>
 
-let _generator: IdFactory
+export class GeneratorService {
 
-function *idFactory(): IdFactory {
-  let _init: number = Date.now()
-  while (true) {
-    yield _init++
+  private _factory?: IdFactory
+
+  constructor(private seed = 0) {
+  
   }
-}
 
-// returns singleton instance
-function getFactory(): IdFactory {
-  if (!_generator) {
-    _generator = idFactory()
+  public static randomNumber<T extends number = number>(_min: T, _max: T) {
+    return Math.floor(Math.random() * Math.floor(_max + 1)) || _min
   }
-  return _generator
-}
 
-/** Returns an incrementally generated integer */
-export function generateNumericId(): int {
-  return getFactory().next().value as int
-}
+  public static randomString(_length: uint16 = 8): string {
+    if (!_length || _length < 1)
+      throw new Error("Invalid randomized string length: " + _length)
+    let _string: string = ''
+    while (_string.length < _length)
+      _string += Math.random().toString(36).substring(2, _length - _string.length)
+    return _string
+  }
 
-/** Returns an incrementally generated integer as a hex string */
-export function generateId(): string {
-  return generateNumericId().toString(16)
-}
+  private *idFactory(): IdFactory {
+    while (true) {
+      this.seed++
+      yield this.seed
+    }
+  }
 
-/** Returns random number within range */
-export function randomNumber<T extends number = number>(_min: T, _max: T) {
-  return Math.floor(Math.random() * Math.floor(_max + 1)) || _min
-}
+  private getFactory(): IdFactory {
+    if (!this._factory) {
+      this._factory = this.idFactory()
+    }
+    return this._factory
+  }
 
-/** Returns a randomized string up to a  */
-export function randomString(_length: uint16 = 8): string {
-  if (!_length || _length < 1)
-    throw new Error("Invalid randomized string length: " + _length)
-  let _string: string = ''
-  while (_string.length < _length)
-    _string += Math.random().toString(36).substring(2, _length - _string.length)
-  return _string
+  public generateNumericId(): number {
+    return this.getFactory().next().value as number
+  }
+
+  public generateId(): string {
+    return this.generateNumericId().toString(16)
+  }
+
 }
