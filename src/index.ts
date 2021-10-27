@@ -1,1 +1,1 @@
-export * as Numeric from './public-api'
+export * from './public-api'
