@@ -1,3 +1,3 @@
-export * as bitwise from './bitwise'
-export * as generate from './generate'
-export * as typing from './typing'
+export * as Bitwise from './bitwise'
+export * as Generate from './generate'
+export * as Typing from './typing'
